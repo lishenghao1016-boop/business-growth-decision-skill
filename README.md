@@ -1,6 +1,6 @@
 # 企业增长经营决策助手
 
-一个面向企业老板、创始人和经营管理团队的中文 Agent Skill，可用于 Codex、Claude Code、WorkBuddy 及其他兼容 `SKILL.md` 的 Agent。它把模糊的增长、利润、客户、品牌、预算和经营计划问题，转化为可比较、可批准、可验证、可复盘的管理决策。
+一个面向企业老板、创始人和经营管理团队的中文 Agent Skill，可用于 Codex、Claude Code 及其他兼容 `SKILL.md` 的 Agent；支持标准 Agent Skills 的 WorkBuddy 版本也可使用。它把模糊的增长、利润、客户、品牌、预算和经营计划问题，转化为可比较、可批准、可验证、可复盘的管理决策。
 
 > 当前版本：`v0.1.0-preview`。适合试用、评审和迭代，不代表已经覆盖所有行业与复杂经营场景。
 
@@ -73,13 +73,15 @@ cd business-growth-decision-skill
 |---|---|---|
 | Codex | `~/.agents/skills/` | `<项目>/.agents/skills/` |
 | Claude Code | `~/.claude/skills/` | `<项目>/.claude/skills/` |
-| WorkBuddy | `~/.workbuddy/skills/` | `<项目>/.workbuddy/skills/` |
+| WorkBuddy兼容版本* | `~/.workbuddy/skills/` | `<项目>/.workbuddy/skills/` |
 | Cursor | `~/.cursor/skills/` | `<项目>/.agents/skills/` |
 | Gemini CLI | `~/.gemini/skills/` | `<项目>/.agents/skills/` |
 | GitHub Copilot | `~/.copilot/skills/` | `<项目>/.agents/skills/` |
 | OpenCode | `~/.config/opencode/skills/` | `<项目>/.agents/skills/` |
 
-例如，安装到 WorkBuddy 的个人目录：
+\* WorkBuddy 尚未列入 `skills` CLI 的正式目标列表，而且不同版本的自定义 Skill 格式可能不同。优先使用 WorkBuddy 的 Skill Marketplace 或产品内导入功能；只有在当前版本明确支持标准 `SKILL.md` 时，才使用上述社区兼容目录。
+
+例如，在确认当前 WorkBuddy 版本支持标准 `SKILL.md` 后，安装到个人目录：
 
 ```bash
 mkdir -p ~/.workbuddy/skills
@@ -98,7 +100,8 @@ cp -R skill/business-growth-decision ~/.claude/skills/
 ## 调用方式
 
 - **Codex**：输入 `$business-growth-decision`，或先运行 `/skills` 再选择。该 Skill 在 Codex 中关闭了隐式调用。
-- **Claude Code、WorkBuddy及其他Agent**：直接说明“使用 business-growth-decision 分析……”。宿主是否自动触发取决于它自己的 Skill 策略。
+- **Claude Code及其他兼容Agent**：直接说明“使用 business-growth-decision 分析……”。宿主是否自动触发取决于它自己的 Skill 策略。
+- **WorkBuddy**：通过市场或产品内导入后，在新任务中说明“使用 business-growth-decision 分析……”。若产品版本不接受标准 `SKILL.md`，需要等待市场上架或制作 WorkBuddy 原生包。
 - `agents/openai.yaml` 只提供 OpenAI 产品的界面和调用策略；其他 Agent 主要读取标准的 `SKILL.md` 和 `references/`，不受影响。
 
 ## 快速开始
