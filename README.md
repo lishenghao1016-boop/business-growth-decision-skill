@@ -1,6 +1,6 @@
 # 企业增长经营决策助手
 
-一个面向企业老板、创始人和经营管理团队的中文 Codex Skill。它把模糊的增长、利润、客户、品牌、预算和经营计划问题，转化为可比较、可批准、可验证、可复盘的管理决策。
+一个面向企业老板、创始人和经营管理团队的中文 Agent Skill，可用于 Codex、Claude Code、WorkBuddy 及其他兼容 `SKILL.md` 的 Agent。它把模糊的增长、利润、客户、品牌、预算和经营计划问题，转化为可比较、可批准、可验证、可复盘的管理决策。
 
 > 当前版本：`v0.1.0-preview`。适合试用、评审和迭代，不代表已经覆盖所有行业与复杂经营场景。
 
@@ -33,14 +33,73 @@
 
 ## 安装
 
-克隆仓库后，把 `skill/business-growth-decision` 复制到 Codex 的 Skills 目录：
+### 方法一：使用通用安装器
+
+已安装 Node.js 的用户，可以使用开源的 `skills` CLI。它会发现仓库里的 Skill，并让用户选择目标 Agent、安装范围和复制方式：
+
+```bash
+npx skills add lishenghao1016-boop/business-growth-decision-skill --skill business-growth-decision
+```
+
+安装到个人环境，在所有项目中使用：
+
+```bash
+npx skills add lishenghao1016-boop/business-growth-decision-skill \
+  --skill business-growth-decision --global
+```
+
+一次指定多个 Agent：
+
+```bash
+npx skills add lishenghao1016-boop/business-growth-decision-skill \
+  --skill business-growth-decision --global \
+  --agent codex --agent claude-code --agent cursor
+```
+
+`skills` CLI 当前支持 Codex、Claude Code、Cursor、Gemini CLI、GitHub Copilot、OpenCode 等多种 Agent。它是第三方开源安装器；安装前请照常检查 Skill 内容和权限。
+
+### 方法二：手动安装
+
+先克隆仓库：
 
 ```bash
 git clone https://github.com/lishenghao1016-boop/business-growth-decision-skill.git
-cp -R business-growth-decision-skill/skill/business-growth-decision ~/.codex/skills/
+cd business-growth-decision-skill
 ```
 
-该 Skill 默认关闭隐式调用，请在提示词中显式写出 `$business-growth-decision`。
+然后把完整的 `skill/business-growth-decision` 目录复制到目标位置，不能只复制 `SKILL.md`，否则行业规则、指标口径和输出协议不会随之安装。
+
+| Agent | 个人级目录 | 项目级目录 |
+|---|---|---|
+| Codex | `~/.agents/skills/` | `<项目>/.agents/skills/` |
+| Claude Code | `~/.claude/skills/` | `<项目>/.claude/skills/` |
+| WorkBuddy | `~/.workbuddy/skills/` | `<项目>/.workbuddy/skills/` |
+| Cursor | `~/.cursor/skills/` | `<项目>/.agents/skills/` |
+| Gemini CLI | `~/.gemini/skills/` | `<项目>/.agents/skills/` |
+| GitHub Copilot | `~/.copilot/skills/` | `<项目>/.agents/skills/` |
+| OpenCode | `~/.config/opencode/skills/` | `<项目>/.agents/skills/` |
+
+例如，安装到 WorkBuddy 的个人目录：
+
+```bash
+mkdir -p ~/.workbuddy/skills
+cp -R skill/business-growth-decision ~/.workbuddy/skills/
+```
+
+安装到 Claude Code 的个人目录：
+
+```bash
+mkdir -p ~/.claude/skills
+cp -R skill/business-growth-decision ~/.claude/skills/
+```
+
+安装后重新启动 Agent；部分 Agent 也会自动检测变更。
+
+## 调用方式
+
+- **Codex**：输入 `$business-growth-decision`，或先运行 `/skills` 再选择。该 Skill 在 Codex 中关闭了隐式调用。
+- **Claude Code、WorkBuddy及其他Agent**：直接说明“使用 business-growth-decision 分析……”。宿主是否自动触发取决于它自己的 Skill 策略。
+- `agents/openai.yaml` 只提供 OpenAI 产品的界面和调用策略；其他 Agent 主要读取标准的 `SKILL.md` 和 `references/`，不受影响。
 
 ## 快速开始
 
