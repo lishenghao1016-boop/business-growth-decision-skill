@@ -1,0 +1,7 @@
+interface:
+  display_name: "企业增长经营决策助手"
+  short_description: "诊断增长与利润问题，审查经营方案并生成决策和90天行动"
+  default_prompt: "使用 $business-growth-decision 诊断这个经营问题，并告诉我必须决定什么、如何验证以及未来90天怎么做。"
+
+policy:
+  allow_implicit_invocation: false
